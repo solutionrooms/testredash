@@ -1,0 +1,375 @@
+<title>
+    Dev mini review</title>
+<meta name="description" content="Test mini review amcharts" />
+
+
+<!-- amCharts javascript sources -->
+<script type="text/javascript" src="/amcharts/amcharts.js"></script>
+<script type="text/javascript" src="/amcharts/serial.js"></script>
+<script type="text/javascript" src="/amcharts/pie.js"></script>
+<script type="text/javascript" src="/amcharts/themes/light.js"></script>
+<script type="text/javascript" src="/amcharts/plugins/dataloader/dataloader.min.js"></script>
+<script type="text/javascript" src="/charts/bcvcharts.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+/*** Copyright 2013 Teun Duynstee Licensed under the Apache License, Version 2.0 ***/
+firstBy=function(){function n(n){return n}function t(n){return"string"==typeof n?n.toLowerCase():n}function r(r,e){if(e="number"==typeof e?{direction:e}:e||{},"function"!=typeof r){var i=r;r=function(n){return n[i]?n[i]:""}}if(1===r.length){var u=r,o=e.ignoreCase?t:n;r=function(n,t){return o(u(n))<o(u(t))?-1:o(u(n))>o(u(t))?1:0}}return-1===e.direction?function(n,t){return-r(n,t)}:r}function e(n,t){var i="function"==typeof this?this:!1,u=r(n,t),o=i?function(n,t){return i(n,t)||u(n,t)}:u;return o.thenBy=e,o}return e}();
+</script>
+<!--
+<div align="center" id="chartdiv1" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv1a" style="width:100%; height: 450px;"></div>
+-->
+<div align="center" id="chartdiv1b" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv1c" style="width:100%; height: 450px;"></div>
+<!--
+<div align="center" id="chartdiv2" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv3" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv4" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv5" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv6" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv7" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv8" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv9" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv9a" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv10" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv10a" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv11" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv11a" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv12" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv12a" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv13" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv13a" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv14" style="width:100%; height: 450px;"></div>
+<div align="center" id="chartdiv15" style="width:100%; height: 450px;"></div>
+
+<img src="http://analytics.bcv.social/static/img/icon_male.png" align="middle" alt="male">
+<img src="http://analytics.bcv.social/static/img/icon_female.png" align="middle" alt="female">
+<br>
+<br>
+
+<table  border="1" id="topcities">
+    <caption>Facebook Fanbase Top Cities</caption>
+    <tr>
+        <th>city_name</th>
+        <th>value_end</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="topcountries">
+    <caption>Facebook Fanbase Top Countries</caption>
+    <tr>
+        <th>country_name</th>
+        <th>value_end</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="topcitiesreach">
+        <caption>Facebook Reach Top Cities</caption>
+    <tr>
+        <th>city_name</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="topcountriesreach">
+        <caption>Facebook Reach Top Countries </caption>
+    <tr>
+        <th>country_name</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="topcitiesengagement">
+        <caption>Facebook Engagement Top Cities</caption>
+    <tr>
+        <th>city_name</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="topcountriesengagement">
+        <caption>Facebook Engagement Top Countries </caption>
+    <tr>
+        <th>country_name</th>
+        <th>value_new</th>
+    </tr>
+</table>
+</br></br>
+<table border="1" id="facebookbest">
+        <caption>Facebook Best Posts</caption>
+    <tr>
+        <th>facebook_id</th>
+        <th>post_id</th>
+        <th>status</th>
+        <th>likes_eot</th>
+        <th>comments_eot</th>
+        <th>shares_eot</th>
+        <th>clicks_eot</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="twitterbest">
+        <caption>Twitter Best Posts</caption>
+    <tr>
+        <th>twitter_id</th>
+        <th>tweet_id</th>
+        <th>text</th>
+        <th>reach_eot</th>
+        <th>unique_reach_eot</th>
+        <th>retweeted_eot</th>
+        <th>favorited_eot</th>
+        <th>manual_clicks_eot</th>
+    </tr>
+</table>
+</br></br>
+
+<table border="1" id="instagrambest">
+        <caption>Instagram Best Posts</caption>
+    <tr>
+        <th>instagram_id</th>
+        <th>media_id</th>
+        <th>text</th>
+        <th>status</th>
+        <th>likes_eot</th>
+        <th>comments_eot</th>
+    </tr>
+</table>
+-->
+
+
+<script>
+    //get the parameters from the url
+    var url_parms = window.location.href.split('?')[1];
+    console.log(url_parms);
+
+
+    
+    
+    //facebook reports
+    $.getJSON("http://45.79.169.185/embedjon/query/1?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        fb_json = data.data.rows;
+        chart1 = create_AmChart("chartdiv1", "facebook_public_likes_count_end", "FACEBOOK : TOTAL FANS", fb_json);
+        chart1a = create_AmChart("chartdiv1a", "facebook_public_likes_count_new", "FACEBOOK : NEW FANS", fb_json);
+        chart2 = create_AmChart("chartdiv2", "facebook_public_tat_lifetime_aggregate_count", "FACEBOOK : TOTAL TAT AGGREGATE", fb_json);
+        chart3 = create_AmChart("chartdiv3", "facebook_public_tat_aggregate_count", "FACEBOOK : TAT AGGREGATE", fb_json);
+    });
+ //facebook posts reports   
+ $.getJSON("http://45.79.169.185/embedjon/query/22?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        fbp_json = data.data.rows;
+        chart1b = create_AmChartStacked("chartdiv1b", "old_post_engaged_users_sum","new_post_engaged_users_sum", "FACEBOOK POSTS : PEOPLE ENGAGED", fbp_json);
+        chart1v = create_AmChartLine("chartdiv1c", "old_post_engaged_users_new","new_post_engaged_users_new", "FACEBOOK POSTS : CHANGE IN PEOPLE ENGAGED", fbp_json);
+
+    });
+    
+    //twitter reports
+    $.getJSON("http://45.79.169.185/embedjon/query/2?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        tw_json = data.data.rows;
+        console.log(tw_json);
+        chart4 = create_AmChart("chartdiv4", "twitter_public_followers_eom", "TWITTER : TOTAL FOLLOWERS", tw_json);
+        chart5 = create_AmChart("chartdiv5", "twitter_public_statuses_eom", "TWITTER : TOTAL TWEETS SENT", tw_json);
+        chart6 = create_AmChart("chartdiv6", "twitter_public_statuses_new", "TWITTER : TWEETS SENT", tw_json);
+    });
+
+    //instagram reports
+    $.getJSON("http://45.79.169.185/embedjon/query/6?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        ig_json = data.data.rows;
+        console.log(ig_json);
+        chart7 = create_AmChart("chartdiv7", "instagram_public_followers_total_eom", "INSTAGRAM : TOTAL FOLLOWERS", ig_json);
+        chart8 = create_AmChart("chartdiv8", "instagram_private_likes_total_eom", "INSTAGRAM : TOTAL LIKES", ig_json);
+    });
+
+        //facebook competitive
+    $.getJSON("http://45.79.169.185/embedjon/query/7?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        fbc_json = data.data.rows;
+        console.log(fbc_json);
+        console.log( fbc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("likes_end") ).slice(0,6));
+        chart9 = create_AmChartCompetitive("chartdiv9", "likes_end", "FACEBOOK COMPETITIVE ANALYSIS : TOTAL FANS", fbc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("likes_end",{ignoreCase:true,direction:-1}) ).slice(0,6));
+        chart9a = create_AmChartCompetitive("chartdiv9a", "likes_new", "FACEBOOK COMPETITIVE ANALYSIS : NEW FANS", fbc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("likes_new",{ignoreCase:true,direction:-1}) ).slice(0,6));
+    });
+
+    //twitter competitive
+    $.getJSON("http://45.79.169.185/embedjon/query/8?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        twc_json = data.data.rows;
+        console.log(twc_json);
+        chart10 = create_AmChartCompetitive("chartdiv10", "followers_count_end", "TWITTER COMPETITIVE ANALYSIS : TOTAL FOLLOWERS", twc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("followers_count_end",{ignoreCase:true,direction:-1}) ).slice(0,6));
+        chart10a = create_AmChartCompetitive("chartdiv10a", "followers_count_new", "TWITTER COMPETITIVE ANALYSIS : NEW FOLLOWERS", twc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("followers_count_new",{ignoreCase:true,direction:-1}) ).slice(0,6));
+        chart11 = create_AmChartCompetitive("chartdiv11", "statuses_count_end", "TWITTER COMPETITIVE ANALYSIS : TOTAL TWEETS SENT", twc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("statuses_count_end",{ignoreCase:true,direction:-1}) ).slice(0,6));
+        chart11a = create_AmChartCompetitive("chartdiv11a", "statuses_count_new", "TWITTER COMPETITIVE ANALYSIS : NEW TWEETS SENT", twc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("statuses_count_new",{ignoreCase:true,direction:-1}) ).slice(0,6));
+    });
+
+    //instagram competitive
+    $.getJSON("http://45.79.169.185/embedjon/query/9?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        igc_json = data.data.rows;
+        console.log(igc_json);
+        chart12 = create_AmChartCompetitive("chartdiv12", "followers_count_end", "INSTAGRAM COMPETITIVE ANALYSIS : IG TOTAL FOLLOWERS", igc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("followers_count_end",{ignoreCase:true,direction:-1}) ).slice(0,6));
+        chart12a = create_AmChartCompetitive("chartdiv12a", "followers_count_new", "INSTAGRAM COMPETITIVE ANALYSIS : IG NEW FOLLOWERS", igc_json.sort(firstBy("level", {ignoreCase:true}).thenBy("followers_count_new",{ignoreCase:true,direction:-1}) ).slice(0,6));
+    });
+
+    //facebook fanbase demographics age/gender
+    $.getJSON("http://45.79.169.185/embedjon/query/10?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms, function(data) {
+        fbag_json = data.data.rows;
+        console.log(fbag_json);
+        chart13 = create_AmChartAgeDemographics("chartdiv13", "male_value_end", "female_value_end", "FACEBOOK : FANBASE DEMOGRAPHICS : Total", fbag_json)
+        chart13a = create_AmChartAgeDemographics("chartdiv13a", "male_value_new", "female_value_new", "FACEBOOK : FANBASE DEMOGRAPHICS : New", fbag_json)
+    });    
+
+    //facebook fanbase demographics fans top cities
+    $.getJSON("http://45.79.169.185/embedjon/query/12?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_fans_country_lifetime&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                console.log(fbdc_json[i])
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_end + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcountries').append(tr);
+            }
+        });
+    
+    //facebook fanbase demographics fans top countries
+    $.getJSON("http://45.79.169.185/embedjon/query/12?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_fans_city_lifetime&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_end + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcities').append(tr);
+            }
+        });
+    
+    //facebook best posts
+    $.getJSON("http://45.79.169.185/embedjon/query/13?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms,
+        function(data) {
+            fbbp_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbbp_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + fbbp_json[i].facebook_id + "</td>");
+                tr.append("<td>" + fbbp_json[i].post_id + "</td>");
+                tr.append("<td>" + fbbp_json[i].status + "</td>");
+                tr.append("<td>" + fbbp_json[i].likes_eot + "</td>");
+                tr.append("<td>" + fbbp_json[i].comments_eot + "</td>");
+                tr.append("<td>" + fbbp_json[i].shares_eot + "</td>");
+                tr.append("<td>" + fbbp_json[i].clicks_eot + "</td>");
+                $('#facebookbest').append(tr);
+            }
+        });
+
+    
+    //twitter best posts
+    $.getJSON("http://45.79.169.185/embedjon/query/14?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms,
+        function(data) {
+            twbp_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < twbp_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + twbp_json[i].twitter_id + "</td>");
+                tr.append("<td>" + twbp_json[i].tweet_id + "</td>");
+                tr.append("<td>" + twbp_json[i].text + "</td>");
+                tr.append("<td>" + twbp_json[i].reach_eot + "</td>");
+                tr.append("<td>" + twbp_json[i].unique_reach_eot + "</td>");
+                tr.append("<td>" + twbp_json[i].retweeted_eot + "</td>");
+                tr.append("<td>" + twbp_json[i].favorited_eot + "</td>");
+                tr.append("<td>" + twbp_json[i].manual_clicks_eot + "</td>");
+                $('#twitterbest').append(tr);
+            }
+        });
+    
+    //instagram best posts
+    $.getJSON("http://45.79.169.185/embedjon/query/15?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&" + url_parms,
+        function(data) {
+            igbp_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < igbp_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + igbp_json[i].instagram_id + "</td>");
+                tr.append("<td>" + igbp_json[i].media_id + "</td>");
+                tr.append("<td>" + igbp_json[i].status + "</td>");
+                tr.append("<td>" + igbp_json[i].likes_eot + "</td>");
+                tr.append("<td>" + igbp_json[i].comments_eot + "</td>");
+                $('#instagrambest').append(tr);
+            }
+        });
+    
+ //facebook reach demographics age/gender
+    $.getJSON("http://45.79.169.185/embedjon/query/18?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_impressions_by_age_gender_unique_day&" + url_parms, function(data) {
+        fbrag_json = data.data.rows;
+        console.log(fbrag_json);
+        chart14 = create_AmChartAgeDemographics("chartdiv14", "male_value_new", "female_value_new", "FACEBOOK : REACH DEMOGRAPHICS : New", fbrag_json)
+
+    }); 
+    
+ //facebook engaged demographics age/gender
+    $.getJSON("http://45.79.169.185/embedjon/query/18?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_storytellers_by_age_gender_day&" + url_parms, function(data) {
+        fbrag2_json = data.data.rows;
+        console.log(fbrag2_json);
+        chart15 = create_AmChartAgeDemographics("chartdiv15", "male_value_new", "female_value_new", "FACEBOOK : ENGAGED DEMOGRAPHICS : New", fbrag2_json)
+
+    });   
+    //facebook reach demographics fans top cities
+    $.getJSON("http://45.79.169.185/embedjon/query/19?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_impressions_by_city_unique_day&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                console.log(fbdc_json[i])
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcitiesreach').append(tr);
+            }
+        });
+    
+    //facebook reach demographics fans top countries
+    $.getJSON("http://45.79.169.185/embedjon/query/19?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_impressions_by_country_unique_day&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcountriesreach').append(tr);
+            }
+        });
+
+//facebook engagement demographics fans top cities
+    $.getJSON("http://45.79.169.185/embedjon/query/19?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_storytellers_by_city_day&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                console.log(fbdc_json[i])
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcitiesengagement').append(tr);
+            }
+        });
+    
+    //facebook engagement demographics fans top countries
+    $.getJSON("http://45.79.169.185/embedjon/query/19?api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ&p_metric=page_storytellers_by_country_day&" + url_parms,
+        function(data) {
+            fbdc_json = data.data.rows;
+            var tr;
+            for (var i = 0; i < fbdc_json.length; i++) {
+                tr = $('<tr/>');
+                tr.append("<td>" + fbdc_json[i].name + "</td>");
+                tr.append("<td>" + fbdc_json[i].value_new + "</td>");
+                $('#topcountriesengagement').append(tr);
+            }
+        });
+</script>

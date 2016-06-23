@@ -1,0 +1,266 @@
+<style>
+    .heatmap-container {
+        border: 1px solid #F2F3F3;
+        margin: 20px;
+        overflow: scroll;
+    }
+    
+    .heatmap-title {
+                text-align: center;
+        background: #F2F3F3;
+                font-size: 26px;
+        line-height: 20px;
+        height: 26px;
+        padding-left: 8px;
+        font-weight: 500;
+    }
+    
+    .heatmap-pivot-label {
+        font-size: 20px;
+        text-align: center;
+        margin: 10px;
+    }
+    
+    .heatmap-table {
+        table-layout: fixed;
+        border-collapse: separate;
+        font-size: 20px;
+        border-spacing: 1px;
+        margin: 5px auto 10px auto;
+    }
+    
+    .heatmap-table-header-cell {
+        overflow: hidden;
+        font-size: 16px;
+        padding: 4px;
+        color: white;
+        background: gray;
+    }
+    
+    .heatmap-string {
+        text-align: left;
+    }
+    
+    .heatmap-number {
+        text-align: center;
+    }
+    .heatmap-number-right {
+        text-align: right;
+        font-weight: normal;
+    }
+    .heatmap-table td {
+        overflow: hidden;
+        padding: 6px 6px 4px 6px;
+        /*border-radius: 4px;*/
+    }
+    
+    .label {
+        text-align: center;
+        color: #8D9D9F;
+    }
+    
+    .title {
+        text-align: center;
+        padding-left: 10px;
+    }
+
+</style>
+
+<div id="graphic1"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script>
+    var options = [{
+        html_element: "#graphic1",
+        query_name: "Query 1",
+        gradient: "by column", // Other option is "by column"
+        excluded_columns: ["Client", "Name"],
+        title: "Jupitex Messages Load Delay Report - Minutes since last load",
+        value_is_percent: false,
+        value_is_hour: true,
+        colors: ["#FFFFFF", "#FFD6DB", "#FFB3BB", "#FF808E", "#FF5266", "#FC324A", "#FA0C29"]
+    }]
+
+
+  //  drawGrid(options[0])
+$.getJSON("http://45.79.169.185/embedjon/query/20?p_blank=blank&maxAge=1&api_key=iwY5EQeFBFf2Kt1W3CG4hoBn8r9NBOJuXHhDuneZ", function(data) {
+        grid1=drawGrid(options[0],data.data.rows,data.data.columns);
+
+    });
+    
+    function drawGrid(o,data,columns) {
+
+        var htmlElement = o["html_element"] || "body";
+        colors = o["colors"] || ["#d73027", "#f46d43", "#fdae61", "#fee08b", "#ffffbf", "#d9ef8b", "#a6d96a", "#66bd63", "#1a9850"],
+            exlcudedColumns = o["excluded_columns"] || [],
+            gradient = o["gradient"] || "full table";
+
+        $(htmlElement).addClass("heatmap-container");
+
+      /*  var data = datasets.filter(function(d) {
+                return d.queryName == o["query_name"];
+            })[0].content,
+            columns = datasets.filter(function(d) {
+                return d.queryName == o["query_name"];
+            })[0].columns;*/
+console.log(data);
+        if (gradient == "by column") {
+            var colorArray = {};
+
+            columns.forEach(function(c) {
+                if (exlcudedColumns.indexOf(c.name) == -1) {
+                    var columnRange = d3.extent(data, function(d) {
+                        return d[c.name];
+                    });
+
+                    colorArray[c.name] = d3.scale.quantize()
+                        .domain(d3.extent(columnRange))
+                        .range(colors);
+        
+                }
+            })
+
+        } else {
+            var fullValues = [];
+
+            columns.forEach(function(c) {
+                if (exlcudedColumns.indexOf(c.name) == -1) {
+                    var columnRange = d3.extent(data, function(d) {
+                        return d[c.name];
+                    });
+                    fullValues = fullValues.concat(columnRange);
+                }
+            })
+
+            color = d3.scale.quantize()
+                .domain(d3.extent(fullValues))
+                .range(colors)
+        }
+
+        d3.select(htmlElement)
+            .append("div")
+            .attr("class", "heatmap-title")
+            .text(function() {
+                if (o["title"]) {
+                    return o["title"];
+                }
+            })
+
+        var table = d3.select(htmlElement).append("table")
+            .attr("class", "heatmap-table");
+
+        table.selectAll(".heatmap-table-header")
+            .data([0])
+            .enter().append("tr")
+            .attr("class", "heatmap-table-header")
+            .selectAll("heatmap-table-header-cell")
+            .data(columns)
+            .enter().append("td")
+            .attr("class", function(d) {
+                if (d.type=="number") {
+                    return "heatmap-table-header-cell heatmap-number";
+                } else {
+                    return "heatmap-table-header-cell heatmap-string";
+                }
+            })
+            .text(function(d) {
+                return d.name;
+            })
+
+        table.selectAll(".heatmap-table-row")
+            .data(data)
+            .enter().append("tr")
+            .attr("class", "heatmap-table-row")
+            .selectAll(".heatmap-table-cell")
+            .data(function(d) {
+                return makeRow(d, columns);
+            })
+            .enter().append("td")
+            .style("background", function(d) {
+                if (checkShade(d, o)) {
+                    return pickColor(d, o);
+                }
+            })
+            .attr("class", function(d) {
+                return cellClass(d);
+            })
+            .text(function(d) {
+                return fmt(d, o);
+            })
+
+        function pickColor(entry, options) {
+            if (gradient == "by column") {
+                color = colorArray[entry.column];
+            }
+            return color(entry.value);
+        }
+
+        function checkShade(entry, options) {
+            if (entry.value === "") {
+                return false;
+            } else if (exlcudedColumns.indexOf(entry.column) == -1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function cellClass(entry) {
+            var type = getDataType(entry.column);
+            if (type == "float" || type == "integer" || type == "number") {
+                return "heatmap-number-right";
+            } else {
+                return "heatmap-string";
+            }
+        }
+
+        function getDataType(column) {
+            return columns.filter(function(d) {
+                return d.name == column
+            })[0].type;
+        }
+
+        function makeRow(rowObject, columns) {
+            var row = [];
+
+            columns.forEach(function(c) {
+                row.push({
+                    column: c.name,
+                    value: rowObject[c.name]
+                });
+            })
+            return row;
+        }
+
+        function fmt(entry, options) {
+
+            var type = getDataType(entry.column);
+
+            var c = d3.format(","),
+                p = d3.format(".2p"),
+                t = d3.time.format("%b %d, %Y"),
+                h = d3.format(".2f")
+                r = d3.time.format("%Y-%m-%dT%H:%M:%S.000Z").parse;
+
+            if (entry.value === "") {
+                return entry.value;
+            } else if (type == "datetime" || type == "timestamp") {
+                var newDate = new Date(Date.parse(entry.value));
+                parsedString = r(newDate.toISOString());
+                return t(parsedString);
+            } else if (checkShade(entry, options) && options["value_is_percent"]) {
+                return p(entry.value);
+            } else if (checkShade(entry, options) && options["value_is_hour"]) {
+                return h(entry.value);
+            } else if (type == "number" || type == "float" || type == "integer") {
+                return c(entry.value);
+            } else {
+                return entry.value;
+            }
+        }
+
+
+    }
+
+</script>
+
